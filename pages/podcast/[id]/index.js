@@ -15,9 +15,7 @@ export async function getStaticProps({ params }) {
   const res = await fetch(`http://localhost:3000/api/podcast/${params.id}`);
   const podcast = await res.json();
 
-  const episodeRes = await fetch(
-    `http://localhost:3000/api/podcast/${params.id}/episodes`
-  );
+  const episodeRes = await fetch(`/api/podcast/${params.id}/episodes`);
   const episodes = await episodeRes.json();
 
   return { props: { podcast, episodes } };

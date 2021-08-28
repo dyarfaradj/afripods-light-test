@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const res = await fetch(
-    `http://localhost:3000/api/podcast/${params.id}/episodes/${params.episodeId}`
+    `/api/podcast/${params.id}/episodes/${params.episodeId}`
   );
   const episode = await res.json();
 
