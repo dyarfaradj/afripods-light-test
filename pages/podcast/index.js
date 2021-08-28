@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { podcasts } from "../../utils/mockData";
+import { podcasts } from "../utils/mockData";
 import PodcastListItem from "../../components/PodcastListItem";
 
 const Wrapper = styled.div`

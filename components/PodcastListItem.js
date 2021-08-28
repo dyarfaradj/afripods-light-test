@@ -106,7 +106,7 @@ const PodcastListItem = ({
       {(open || showFull) && (
         <ListContainer showFull={showFull}>
           {episodes?.map((e) => (
-            <EpisodeListItem item={e} />
+            <EpisodeListItem key={e.id} item={e} />
           ))}
         </ListContainer>
       )}
