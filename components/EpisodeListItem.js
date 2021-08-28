@@ -4,7 +4,7 @@ import * as moment from "moment";
 import "moment-duration-format";
 
 const ItemWrapper = styled.div`
-  background-color: lightgray;
+  background-color: white;
   border-radius: 7px;
   margin: 20px 0 20px 0;
   padding: 0 15px 20px 15px;
@@ -30,8 +30,12 @@ const ItemSubTitle = styled.h5`
 
 const ItemDescription = styled.p`
   display: -webkit-box;
-  max-width: 80%;
-  -webkit-line-clamp: 2;
+
+  ${({ showFull }) =>
+    !showFull &&
+    `-webkit-line-clamp: 2;
+    max-width: 80%;
+  `}
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin-bottom: 0px;
@@ -47,6 +51,10 @@ const OpenLink = styled.div`
   cursor: pointer;
 `;
 
+const PodcastTitle = styled.span`
+  cursor: pointer;
+`;
+
 const EpisodeListItem = ({
   item: { id, title, duration, description, created, podcast },
   showFull,
@@ -55,7 +63,15 @@ const EpisodeListItem = ({
 
   return (
     <ItemWrapper key={id}>
-      <ItemTitle>{title}</ItemTitle>
+      <ItemTitle>
+        {title}
+        {showFull && (
+          <PodcastTitle onClick={() => router.push("/podcast/" + podcast.id)}>
+            {" "}
+            - ({podcast.title})
+          </PodcastTitle>
+        )}
+      </ItemTitle>
       <SubContent>
         <ItemDate>{moment(created).format("YYYY-MM-DD")}</ItemDate>
         <ItemSubTitle>
@@ -66,7 +82,7 @@ const EpisodeListItem = ({
         </ItemSubTitle>
       </SubContent>
       <Bottom>
-        <ItemDescription>{description}</ItemDescription>
+        <ItemDescription showFull={showFull}>{description}</ItemDescription>
         {!showFull && (
           <OpenLink
             onClick={() =>

@@ -7,14 +7,22 @@ const navLinks = [
   //   { title: "Contact", id: "contact" },
 ];
 
-const NavbarWrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   height: 56px;
   padding: 0 25px 0 25px;
   background-color: #20b7f8;
   color: white;
+`;
+
+const NavbarWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 600px;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const Title = styled.h1`
@@ -34,18 +42,20 @@ const NavLink = styled.a`
 
 const Navbar = () => {
   return (
-    <NavbarWrapper>
-      <Link href="/">
-        <Title>Afripods</Title>
-      </Link>
-      <NavLinkWrapper>
-        {navLinks.map((n) => (
-          <Link href="/" key={n.id}>
-            <NavLink>{n.title}</NavLink>
-          </Link>
-        ))}
-      </NavLinkWrapper>
-    </NavbarWrapper>
+    <Wrapper>
+      <NavbarWrapper>
+        <Link href="/">
+          <Title>Afripods</Title>
+        </Link>
+        <NavLinkWrapper>
+          {navLinks.map((n) => (
+            <Link href="/" key={n.id}>
+              <NavLink>{n.title}</NavLink>
+            </Link>
+          ))}
+        </NavLinkWrapper>
+      </NavbarWrapper>
+    </Wrapper>
   );
 };
 

@@ -15,10 +15,10 @@ export async function getStaticProps({ params }) {
   const res = await fetch(`http://localhost:3000/api/podcast/${params.id}`);
   const podcast = await res.json();
 
-  const res2 = await fetch(
+  const episodeRes = await fetch(
     `http://localhost:3000/api/podcast/${params.id}/episodes`
   );
-  const episodes = await res2.json();
+  const episodes = await episodeRes.json();
 
   return { props: { podcast, episodes } };
 }

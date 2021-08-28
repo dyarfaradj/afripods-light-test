@@ -7,8 +7,7 @@ import EpisodeListItem from "./EpisodeListItem";
 
 const ItemWrapper = styled.div`
   min-height: 160px;
-  width: 700px;
-  background-color: lightgray;
+  background-color: white;
   border-radius: 7px;
   margin: 20px 0 20px 0;
   padding: 0 15px 20px 15px;
@@ -16,6 +15,7 @@ const ItemWrapper = styled.div`
 `;
 
 const ItemTitle = styled.h2`
+  padding-top: 8px;
   margin-bottom: 4px;
   cursor: pointer;
 `;
@@ -40,16 +40,24 @@ const ItemDescription = styled.p`
   overflow: hidden;
   margin-bottom: 0px;
   ${({ showFull }) => !showFull && `-webkit-line-clamp: 4;`}
+  @media (max-width: ${({ theme }) => theme.breakpoints.small}) {
+    max-width: 100%;
+  }
 `;
 
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.small}) {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 `;
 
 const ListContainer = styled.div`
-  max-height: 250px;
+  max-height: ${({ showFull }) => (showFull ? "400px" : "250px")};
   overflow: hidden;
   overflow-y: auto;
 `;
@@ -62,6 +70,9 @@ const ExtendButton = styled.div`
   svg {
     transition: all 150ms ease-in-out;
     margin-left: 3px;
+  }
+  @media (max-width: ${({ theme }) => theme.breakpoints.small}) {
+    margin: 15px auto 0;
   }
 `;
 
@@ -88,12 +99,12 @@ const PodcastListItem = ({
         </ItemDescription>
         {!showFull && (
           <ExtendButton onClick={() => setOpen((v) => !v)}>
-            Show more <ArrowButton size="24" direction={open ? "up" : "down"} />
+            Details <ArrowButton size="24" direction={open ? "up" : "down"} />
           </ExtendButton>
         )}
       </Bottom>
       {(open || showFull) && (
-        <ListContainer>
+        <ListContainer showFull={showFull}>
           {episodes?.map((e) => (
             <EpisodeListItem item={e} />
           ))}
