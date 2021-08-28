@@ -1,7 +1,7 @@
 import EpisodeListItem from "../../../../components/EpisodeListItem";
 
 export async function getStaticPaths() {
-  const res = await fetch("http://localhost:3000/api/podcast/1/episodes");
+  const res = await fetch("/api/podcast/1/episodes");
   const episodes = await res.json();
 
   const paths = episodes.map((episode) => ({
