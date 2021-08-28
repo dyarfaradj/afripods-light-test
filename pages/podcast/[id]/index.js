@@ -1,4 +1,4 @@
-import PodcastListItem from "../../components/PodcastListItem";
+import PodcastListItem from "../../../components/PodcastListItem";
 
 export async function getStaticPaths() {
   const res = await fetch("http://localhost:3000/api/podcast");
@@ -15,11 +15,16 @@ export async function getStaticProps({ params }) {
   const res = await fetch(`http://localhost:3000/api/podcast/${params.id}`);
   const podcast = await res.json();
 
-  return { props: { podcast } };
+  const res2 = await fetch(
+    `http://localhost:3000/api/podcast/${params.id}/episodes`
+  );
+  const episodes = await res2.json();
+
+  return { props: { podcast, episodes } };
 }
 
-const Podcast = ({ podcast }) => {
-  return <PodcastListItem item={podcast} />;
+const Podcast = ({ podcast, episodes }) => {
+  return <PodcastListItem item={podcast} episodes={episodes} showFull />;
 };
 
 export default Podcast;

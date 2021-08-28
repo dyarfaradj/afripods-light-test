@@ -1,7 +1,9 @@
-import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import moment from "moment";
 import ArrowButton from "./ArrowButton";
+import EpisodeListItem from "./EpisodeListItem";
 
 const ItemWrapper = styled.div`
   min-height: 160px;
@@ -15,6 +17,7 @@ const ItemWrapper = styled.div`
 
 const ItemTitle = styled.h2`
   margin-bottom: 4px;
+  cursor: pointer;
 `;
 
 const SubContent = styled.div`
@@ -33,10 +36,10 @@ const ItemSubTitle = styled.h5`
 const ItemDescription = styled.p`
   display: -webkit-box;
   max-width: 80%;
-  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin-bottom: 0px;
+  ${({ showFull }) => !showFull && `-webkit-line-clamp: 4;`}
 `;
 
 const Bottom = styled.div`
@@ -45,32 +48,57 @@ const Bottom = styled.div`
   align-items: flex-end;
 `;
 
+const ListContainer = styled.div`
+  max-height: 250px;
+  overflow: hidden;
+  overflow-y: auto;
+`;
+
+const ExtendButton = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  cursor: pointer;
+  svg {
+    transition: all 150ms ease-in-out;
+    margin-left: 3px;
+  }
+`;
+
 const PodcastListItem = ({
   item: { id, title, numberOfEpisodes, description, created },
+  episodes,
+  showFull,
 }) => {
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+
   return (
     <ItemWrapper key={id}>
-      <Link
-        href={{
-          pathname: "podcast/[id]",
-          query: {
-            id: id,
-          },
-        }}
-      >
-        <ItemTitle>{title}</ItemTitle>
-      </Link>
-
+      <ItemTitle onClick={() => router.push("/podcast/" + id)}>
+        {title}
+      </ItemTitle>
       <SubContent>
         <ItemDate>{moment(created).format("YYYY-MM-DD")}</ItemDate>
         <ItemSubTitle>{numberOfEpisodes} episodes</ItemSubTitle>
       </SubContent>
       <Bottom>
-        <ItemDescription>{description}</ItemDescription>
-        <div>
-          Show more <ArrowButton size="24" direction="down" />
-        </div>
+        <ItemDescription showFull={showFull || open}>
+          {description}
+        </ItemDescription>
+        {!showFull && (
+          <ExtendButton onClick={() => setOpen((v) => !v)}>
+            Show more <ArrowButton size="24" direction={open ? "up" : "down"} />
+          </ExtendButton>
+        )}
       </Bottom>
+      {(open || showFull) && (
+        <ListContainer>
+          {episodes?.map((e) => (
+            <EpisodeListItem item={e} />
+          ))}
+        </ListContainer>
+      )}
     </ItemWrapper>
   );
 };

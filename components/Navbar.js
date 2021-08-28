@@ -40,7 +40,7 @@ const Navbar = () => {
       </Link>
       <NavLinkWrapper>
         {navLinks.map((n) => (
-          <Link href="/">
+          <Link href="/" key={n.id}>
             <NavLink>{n.title}</NavLink>
           </Link>
         ))}

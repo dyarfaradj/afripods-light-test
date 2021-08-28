@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { podcasts } from "../utils/mockData";
+import { episodes, podcasts } from "../utils/mockData";
 import PodcastListItem from "./PodcastListItem";
 
 const Wrapper = styled.div`
@@ -25,8 +25,11 @@ const PodcastList = () => {
     <Wrapper>
       <ListWrapper>
         <Title>Available podcasts</Title>
-        {podcasts.map((p, i) => (
-          <PodcastListItem item={p} />
+        {podcasts.map((p) => (
+          <PodcastListItem
+            item={p}
+            episodes={episodes.filter((x) => x.podcast.id === p.id)}
+          />
         ))}
       </ListWrapper>
     </Wrapper>
