@@ -15,7 +15,7 @@ const ArrowSVG = styled.svg`
   }}
 `;
 
-const ArrowButton = ({ direction, color, size = "24" }) => {
+const ArrowButton = ({ direction, size = "24" }) => {
   return (
     <ArrowSVG
       xmlns="http://www.w3.org/2000/svg"

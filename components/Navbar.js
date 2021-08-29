@@ -1,11 +1,7 @@
 import styled from "styled-components";
 import Link from "components/Link";
 
-const navLinks = [
-  { title: "Podcasts", id: "podcasts" },
-  //   { title: "FAQ", id: "faq" },
-  //   { title: "Contact", id: "contact" },
-];
+const navLinks = [{ title: "Podcasts", id: "podcasts" }];
 
 const Wrapper = styled.div`
   display: flex;
