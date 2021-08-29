@@ -4,6 +4,7 @@ import Link from "components/Link";
 
 const StyledP = styled.p`
   text-decoration: underline;
+  cursor: pointer;
 `;
 
 const Podcast = ({ podcast, episodes }) => (
