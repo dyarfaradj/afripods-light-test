@@ -8,7 +8,7 @@ export async function getStaticPaths() {
   );
   const episodes = await res.json();
 
-  const paths = episodes.map((episode) => ({
+  const paths = episodes?.map((episode) => ({
     params: {
       id: episode.podcast.id.toString(),
       episodeId: episode.id.toString(),
