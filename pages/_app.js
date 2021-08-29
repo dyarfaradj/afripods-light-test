@@ -1,9 +1,10 @@
+import "styles/globals.css";
+
 import styled from "styled-components";
 import { ThemeProvider } from "styled-components";
-import Navbar from "../components/Navbar";
-import "../styles/globals.css";
-import GlobalStyle from "../styles/globalStyles";
-import { lightTheme } from "../styles/lightTheme";
+import Navbar from "components/Navbar";
+import GlobalStyle from "styles/globalStyles";
+import { lightTheme } from "styles/lightTheme";
 
 const Wrapper = styled.div`
   display: flex;

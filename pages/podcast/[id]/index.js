@@ -1,28 +1,43 @@
-import PodcastListItem from "../../../components/PodcastListItem";
+import styled from "styled-components";
+import PodcastListItem from "components/PodcastListItem";
+import Link from "components/Link";
+
+const StyledP = styled.p`
+  text-decoration: underline;
+`;
+
+const Podcast = ({ podcast, episodes }) => (
+  <>
+    <Link href="/">
+      <StyledP>Go Back</StyledP>
+    </Link>
+    <PodcastListItem item={podcast} episodes={episodes} showFull />
+  </>
+);
 
 export async function getStaticPaths() {
-  const res = await fetch("/api/podcast");
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/podcast`);
   const podcasts = await res.json();
 
-  const paths = podcasts.map((podcast) => ({
-    params: { id: podcast.id.toString() },
+  const paths = podcasts.map(({ id }) => ({
+    params: { id: id.toString() },
   }));
 
   return { paths, fallback: false };
 }
 
 export async function getStaticProps({ params }) {
-  const res = await fetch(`/api/podcast/${params.id}`);
-  const podcast = await res.json();
+  const podcastRes = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_API}/podcast/${params.id}`
+  );
+  const podcast = await podcastRes.json();
 
-  const episodeRes = await fetch(`/api/podcast/${params.id}/episodes`);
+  const episodeRes = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_API}/podcast/${params.id}/episodes`
+  );
   const episodes = await episodeRes.json();
 
   return { props: { podcast, episodes } };
 }
-
-const Podcast = ({ podcast, episodes }) => {
-  return <PodcastListItem item={podcast} episodes={episodes} showFull />;
-};
 
 export default Podcast;

@@ -1,4 +1,4 @@
-import { podcasts } from "../../../../utils/mockData";
+import { podcasts } from "utils/mockData";
 
 export default function handler(req, res) {
   const { id } = req.query;

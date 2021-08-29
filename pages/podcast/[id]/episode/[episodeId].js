@@ -1,7 +1,11 @@
-import EpisodeListItem from "../../../../components/EpisodeListItem";
+import EpisodeListItem from "components/EpisodeListItem";
+
+const Episode = ({ episode }) => <EpisodeListItem item={episode} showFull />;
 
 export async function getStaticPaths() {
-  const res = await fetch("/api/podcast/1/episodes");
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_API}/podcast/1/episodes`
+  );
   const episodes = await res.json();
 
   const paths = episodes.map((episode) => ({
@@ -16,15 +20,11 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const res = await fetch(
-    `/api/podcast/${params.id}/episodes/${params.episodeId}`
+    `${process.env.NEXT_PUBLIC_BASE_API}/podcast/${params.id}/episodes/${params.episodeId}`
   );
   const episode = await res.json();
 
   return { props: { episode } };
 }
-
-const Episode = ({ episode }) => {
-  return <EpisodeListItem item={episode} showFull />;
-};
 
 export default Episode;

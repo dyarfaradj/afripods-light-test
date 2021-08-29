@@ -1,4 +1,4 @@
-import { episodes } from "../../../../../utils/mockData";
+import { episodes } from "utils/mockData";
 
 export default function handler(req, res) {
   const { id, episodeId } = req.query;
