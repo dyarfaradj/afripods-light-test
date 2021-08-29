@@ -19,7 +19,7 @@ export async function getStaticPaths() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/podcast`);
   const podcasts = await res.json();
 
-  const paths = podcasts.map(({ id }) => ({
+  const paths = podcasts?.map(({ id }) => ({
     params: { id: id.toString() },
   }));
 
